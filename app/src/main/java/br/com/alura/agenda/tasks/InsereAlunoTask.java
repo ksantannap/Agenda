@@ -1,0 +1,29 @@
+package br.com.alura.agenda.tasks;
+
+import android.os.AsyncTask;
+
+import org.json.JSONStringer;
+
+import br.com.alura.agenda.converter.AlunoConverter;
+import br.com.alura.agenda.modelo.Aluno;
+import br.com.alura.agenda.web.WebClient;
+
+/**
+ * Created by Particular on 28/09/2017.
+ */
+
+public class InsereAlunoTask extends AsyncTask {
+    private final Aluno aluno;
+
+    public InsereAlunoTask(Aluno aluno) {
+        this.aluno = aluno;
+    }
+
+    @Override
+    protected Object doInBackground(Object[] objects) {
+        String json = new AlunoConverter().converteParaJSONCompleto(aluno);
+
+        new WebClient().insere(json);
+        return null;
+    }
+}
